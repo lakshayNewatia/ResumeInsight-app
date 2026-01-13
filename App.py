@@ -1,5 +1,6 @@
 ###### Packages Used ######
 import streamlit as st # core package used in this project
+import nltk
 import spacy
 import pandas as pd
 import base64, random
@@ -23,6 +24,13 @@ from pdfminer.pdfinterp import PDFPageInterpreter
 from pdfminer.converter import TextConverter
 from streamlit_tags import st_tags
 from PIL import Image
+try:
+    nltk.data.find('corpora/stopwords')
+except LookupError:
+    nltk.download('stopwords')
+    nltk.download('punkt')
+    nltk.download('wordnet')
+    nltk.download('averaged_perceptron_tagger')
 from pyresparser import ResumeParser
 # pre stored data for prediction purposes
 from Courses import ds_course,web_course,android_course,ios_course,uiux_course,resume_videos,interview_videos
@@ -31,7 +39,7 @@ import nlp
 
 nlp = spacy.load("en_core_web_sm")
 
-import nltk
+
 nltk.download('stopwords')
 
 from google import genai
