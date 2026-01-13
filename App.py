@@ -42,7 +42,7 @@ client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 def get_gemini_response(prompt: str) -> str:
     try:
         response = client.models.generate_content(
-            model="gemini-1.5-flash",  # Updated to a valid model name
+            model="gemini-2.5-flash",  # Updated to a valid model name
             contents=prompt
         )
         return response.text.strip()
@@ -152,7 +152,7 @@ st.set_page_config(
 def run():
     
     # (Logo, Heading, Sidebar etc)
-    img = Image.open('App\Logo\logo.jpg')
+    img = Image.open('Logo/logo.jpg')
     st.image(img)
     st.sidebar.markdown("# Choose Something...")
     # activities = ["User", "Feedback", "About", "Admin"]
