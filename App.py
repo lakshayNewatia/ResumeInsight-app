@@ -73,7 +73,7 @@ def insert_feedback(data):
 st.set_page_config("AI Resume Analyzer", page_icon="📄")
 st.image(Image.open("Logo/logo.jpg"))
 
-choice = st.sidebar.selectbox("Choose", ["User", "Feedback", "Admin", "About"])
+choice = st.sidebar.selectbox("Choose", ["User", "Admin" , "Feedback", "About"])
 
 # =====================================================
 # ====================== USER =========================
