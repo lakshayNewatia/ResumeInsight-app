@@ -37,7 +37,7 @@ The system follows a **3-layer intelligence architecture**:
 
 ## 🛠️ Tech Stack
 
-Streamlit · Python · Google Gemini API · spaCy · NLTK · pdfminer · Plotly · MySQL 
+Streamlit · Python · Google Gemini API · spaCy · NLTK · pdfminer · Plotly · MongoDB
 
 ---
 
@@ -48,13 +48,6 @@ From a single resume upload, users receive:
 - AI-generated professional summary
 - Skill gap and career path insights
 - Targeted learning and course recommendations
-
----
-
-
-
-The live deployment focuses on **user-facing resume intelligence features**.  
-Admin analytics, feedback storage, and database persistence are currently disabled in the public deployment to keep the live demo lightweight and secure.
 
 ---
 
