@@ -10,6 +10,8 @@ geocoder
 geopy
 plotly
 streamlit-tags
-PyMySQL
 pdf2image
 nltk
+pymongo
+dnspython
+
