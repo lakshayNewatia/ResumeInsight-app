@@ -2,7 +2,7 @@ import streamlit as st
 import nltk
 import spacy
 import secrets
-from pdf2image import convert_from_path
+# from pdf2image import convert_from_path
 import socket   
 import platform
 import pandas as pd
@@ -24,15 +24,15 @@ from PIL import Image
 import re
 
 # 1. NLTK DOWNLOADS
-try:
-    nltk.data.find('corpora/stopwords')
-except LookupError:
+@st.cache_resource
+def load_nltk():
     nltk.download('stopwords')
     nltk.download('punkt')
     nltk.download('wordnet')
     nltk.download('averaged_perceptron_tagger')
 
-from pyresparser import ResumeParser
+load_nltk()
+
 from Courses import ds_course, web_course, android_course, ios_course, uiux_course, resume_videos, interview_videos
 
 # 2. LOAD SPACY MODEL
@@ -76,19 +76,16 @@ def pdf_reader(file):
 
 def show_pdf(file_path):
     try:
-        images = convert_from_path(file_path, first_page=1, last_page=1)
-        if images:
-            st.image(images[0], caption="Resume Preview", use_container_width=True)
-            with open(file_path, "rb") as f:
-                st.download_button(
-                    label="📥 Download Full Resume",
-                    data=f,
-                    file_name=os.path.basename(file_path),
-                    mime="application/pdf"
-                )
+        with open(file_path, "rb") as f:
+            st.download_button(
+                label="📥 Download Resume PDF",
+                data=f,
+                file_name=os.path.basename(file_path),
+                mime="application/pdf"
+            )
+        st.info("📄 PDF preview is disabled on Streamlit Cloud. Download to view.")
     except Exception as e:
-        st.error(f"Error rendering preview: {e}")
-        st.info("The preview is unavailable, but you can still download the file above.")
+        st.error(f"Unable to load PDF: {e}")
 
 def course_recommender(course_list):
     st.subheader("**Courses & Certificates Recommendations 👨‍🎓**")
