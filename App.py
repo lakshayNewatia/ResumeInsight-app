@@ -137,29 +137,15 @@ def run():
         ip_add = socket.gethostbyname(host_name)
         dev_user = getpass.getuser()
         os_name_ver = platform.system() + " " + platform.release()
-        
-        g = geocoder.ip('me')
-        latlong = g.latlng
-        geolocator = Nominatim(user_agent="http")
-        location = geolocator.reverse(latlong, language='en')
-        address = location.raw['address']
-        city = address.get('city', '')
-        state = address.get('state', '')
-        country = address.get('country', '')
+
         try:
             g = geocoder.ip('me')
             latlong = g.latlng if g.latlng else [0, 0]  # fallback
+            city = g.city if hasattr(g, 'city') else ''
+            state = g.state if hasattr(g, 'state') else ''
+            country = g.country if hasattr(g, 'country') else ''
         except Exception:
             latlong = [0, 0]
-        try:
-            # Convert lat-long to city/state/country
-            geolocator = Nominatim(user_agent="resume_analyzer_app")
-            location = geolocator.reverse(latlong, language='en') if latlong != [0,0] else None
-            address = location.raw['address'] if location else {}
-            city = address.get('city', '') or address.get('town','') or address.get('village','')
-            state = address.get('state', '')
-            country = address.get('country', '')
-        except Exception:
             city = state = country = "Unknown"
 
         st.markdown("<h5 style='text-align: left;'>Upload Your Resume, And Get Smart Recommendations</h5>",unsafe_allow_html=True)
