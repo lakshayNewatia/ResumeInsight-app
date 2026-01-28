@@ -232,40 +232,40 @@ def run():
             ## Predicting Candidate Experience Level 
             ## Trying with different possibilities
             cand_level = ''
-                if resume_data['no_of_pages'] < 1:                
-                    cand_level = "NA"
-                    st.markdown( '''<h4 style='text-align: left; color: #d73b5c;'>You are at Fresher level!</h4>''',unsafe_allow_html=True)
+            if resume_data['no_of_pages'] < 1:
+                cand_level = "NA"
+                st.markdown( '''<h4 style='text-align: left; color: #d73b5c;'>You are at Fresher level!</h4>''',unsafe_allow_html=True)
 
-                #### if internship then intermediate level
-                elif 'INTERNSHIP' in resume_text:
-                    cand_level = "Intermediate"
-                    st.markdown('''<h4 style='text-align: left; color: #1ed760;'>You are at intermediate level!</h4>''',unsafe_allow_html=True)
-                elif 'INTERNSHIPS' in resume_text:
-                    cand_level = "Intermediate"
-                    st.markdown('''<h4 style='text-align: left; color: #1ed760;'>You are at intermediate level!</h4>''',unsafe_allow_html=True)
-                elif 'Internship' in resume_text:
-                    cand_level = "Intermediate"
-                    st.markdown('''<h4 style='text-align: left; color: #1ed760;'>You are at intermediate level!</h4>''',unsafe_allow_html=True)
-                elif 'Internships' in resume_text:
-                    cand_level = "Intermediate"
-                    st.markdown('''<h4 style='text-align: left; color: #1ed760;'>You are at intermediate level!</h4>''',unsafe_allow_html=True)
+            #### if internship then intermediate level
+            elif 'INTERNSHIP' in resume_text:
+                cand_level = "Intermediate"
+                st.markdown('''<h4 style='text-align: left; color: #1ed760;'>You are at intermediate level!</h4>''',unsafe_allow_html=True)
+            elif 'INTERNSHIPS' in resume_text:
+                cand_level = "Intermediate"
+                st.markdown('''<h4 style='text-align: left; color: #1ed760;'>You are at intermediate level!</h4>''',unsafe_allow_html=True)
+            elif 'Internship' in resume_text:
+                cand_level = "Intermediate"
+                st.markdown('''<h4 style='text-align: left; color: #1ed760;'>You are at intermediate level!</h4>''',unsafe_allow_html=True)
+            elif 'Internships' in resume_text:
+                cand_level = "Intermediate"
+                st.markdown('''<h4 style='text-align: left; color: #1ed760;'>You are at intermediate level!</h4>''',unsafe_allow_html=True)
 
-                #### if Work Experience/Experience then Experience level
-                elif 'EXPERIENCE' in resume_text:
-                    cand_level = "Experienced"
-                    st.markdown('''<h4 style='text-align: left; color: #fba171;'>You are at experience level!''',unsafe_allow_html=True)
-                elif 'WORK EXPERIENCE' in resume_text:
-                    cand_level = "Experienced"
-                    st.markdown('''<h4 style='text-align: left; color: #fba171;'>You are at experience level!''',unsafe_allow_html=True)
-                elif 'Experience' in resume_text:
-                    cand_level = "Experienced"
-                    st.markdown('''<h4 style='text-align: left; color: #fba171;'>You are at experience level!''',unsafe_allow_html=True)
-                elif 'Work Experience' in resume_text:
-                    cand_level = "Experienced"
-                    st.markdown('''<h4 style='text-align: left; color: #fba171;'>You are at experience level!''',unsafe_allow_html=True)
-                else:
-                    cand_level = "Fresher"
-                    st.markdown('''<h4 style='text-align: left; color: #fba171;'>You are at Fresher level!!''',unsafe_allow_html=True)
+            #### if Work Experience/Experience then Experience level
+            elif 'EXPERIENCE' in resume_text:
+                cand_level = "Experienced"
+                st.markdown('''<h4 style='text-align: left; color: #fba171;'>You are at experience level!''',unsafe_allow_html=True)
+            elif 'WORK EXPERIENCE' in resume_text:
+                cand_level = "Experienced"
+                st.markdown('''<h4 style='text-align: left; color: #fba171;'>You are at experience level!''',unsafe_allow_html=True)
+            elif 'Experience' in resume_text:
+                cand_level = "Experienced"
+                st.markdown('''<h4 style='text-align: left; color: #fba171;'>You are at experience level!''',unsafe_allow_html=True)
+            elif 'Work Experience' in resume_text:
+                cand_level = "Experienced"
+                st.markdown('''<h4 style='text-align: left; color: #fba171;'>You are at experience level!''',unsafe_allow_html=True)
+            else:
+                cand_level = "Fresher"
+                st.markdown('''<h4 style='text-align: left; color: #fba171;'>You are at Fresher level!!''',unsafe_allow_html=True)
             
             # ---- Skill Recommendation ----
             st.subheader("**Skills Recommendation 💡**")
