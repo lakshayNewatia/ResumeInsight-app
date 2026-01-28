@@ -102,7 +102,11 @@ def course_recommender(course_list):
     return rec_course
 
 # ---------- Streamlit Page Config ----------
-st.set_page_config(page_title="AI Resume Analyzer", page_icon='./Logo/recommend.png')
+st.set_page_config(
+    page_title="AI Resume Analyzer",
+    page_icon="📄",
+    layout="wide"
+)
 
 # ---------- Main Function ----------
 def run():
