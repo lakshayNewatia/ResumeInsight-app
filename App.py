@@ -216,7 +216,7 @@ def run():
                 "no_of_pages": 1
             }
 
-            st.header("**Resume Analysis 🤘**")
+            st.header("**Resume Analysis**")
             st.success("Hello "+ resume_data['name'])
 
             st.subheader("🤖 AI Summary")
@@ -341,7 +341,7 @@ def run():
                 if s in ds_keyword:
                     field_scores["Data Science"] += 1
                 if s in web_keyword:
-                    field_scores["Web Development"] += 2   # give higher weight
+                    field_scores["Web Development"] += 1   
                 if s in android_keyword:
                     field_scores["Android Development"] += 1
                 if s in ios_keyword:
@@ -354,6 +354,38 @@ def run():
             else:
                 reco_field = max(field_scores, key=field_scores.get)
 
+            # --------- Generate Recommendations ---------
+
+            st.success(f"Predicted Field: {reco_field}")
+
+            if reco_field == "Data Science":
+                recommended_skills = ["Deep Learning", "Feature Engineering", "Model Deployment", "MLOps"]
+                rec_course = course_recommender(ds_course)
+
+            elif reco_field == "Web Development":
+                recommended_skills = ["System Design", "Advanced Backend Architecture", "Docker", "CI/CD"]
+                rec_course = course_recommender(web_course)
+
+            elif reco_field == "Android Development":
+                recommended_skills = ["Jetpack Compose", "Firebase", "MVVM Architecture"]
+                rec_course = course_recommender(android_course)
+
+            elif reco_field == "IOS Development":
+                recommended_skills = ["SwiftUI", "CoreData", "App Store Deployment"]
+                rec_course = course_recommender(ios_course)
+
+            elif reco_field == "UI-UX Development":
+                recommended_skills = ["Design Systems", "Interaction Design", "User Research"]
+                rec_course = course_recommender(uiux_course)
+
+            else:
+                recommended_skills = ["Problem Solving", "Communication"]
+                rec_course = []
+
+    # --------- Show Recommended Skills ---------
+
+            st.subheader("Recommended Skills to Improve")
+            st_tags( label='### Recommended Skills',text='Based on your resume analysis',value=recommended_skills,key='recommended_skills')
 
             # ---- Resume Score ----
             st.subheader("**Resume Score 📝**")
