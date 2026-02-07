@@ -366,15 +366,6 @@ def run():
             ts = time.time()
             timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d_%H:%M:%S')
             user_collection.insert_one({
-                "sec_token": sec_token,
-                "ip_add": ip_add,
-                "host_name": host_name,
-                "dev_user": dev_user,
-                "os_name_ver": os_name_ver,
-                "latlong": latlong,
-                "city": city,
-                "state": state,
-                "country": country,
                 "act_name": act_name,
                 "act_mail": act_mail,
                 "act_mob": act_mob,
@@ -383,7 +374,7 @@ def run():
                 "resume_score": resume_score,
                 "total_pages": resume_data["no_of_pages"],
                 "predicted_field": reco_field,
-                "user_level": "NA",
+                "user_level": cand_level,
                 "actual_skills": resume_data["skills"],
                 "recommended_skills": recommended_skills,
                 "recommended_courses": rec_course,
