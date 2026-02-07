@@ -192,15 +192,21 @@ def run():
             phone = phone_match.group(0) if phone_match else None
 
             # ---- Keywords & Skills ----
-            ds_keyword = ['tensorflow','keras','pytorch','machine learning','deep learning','flask','streamlit']
-            web_keyword = ['react','django','node js','react js','php','laravel','magento','wordpress','javascript','angular js','c#','asp.net','flask']
+            ds_keyword = ['tensorflow','keras','pytorch','machine learning','deep learning','nlp','pandas','numpy','scikit-learn','streamlit','genai','semantic analysis']
+            web_keyword = ['react', 'react.js', 'next.js','node.js', 'node js', 'express', 'express.js','mongodb', 'mongo db','javascript', 'html', 'css', 'tailwind','jwt', 'rest api', 'rest apis','prisma', 'mysql', 'socket.io']
             android_keyword = ['android','android development','flutter','kotlin','xml','kivy']
             ios_keyword = ['ios','ios development','swift','cocoa','cocoa touch','xcode']
-            uiux_keyword = ['ux','adobe xd','figma','zeplin','balsamiq','ui','prototyping','wireframes','storyframes','adobe photoshop','photoshop','editing','adobe illustrator','illustrator','adobe after effects','after effects','adobe premier pro','premier pro','adobe indesign','indesign','wireframe','solid','grasp','user research','user experience']
-            n_any = ['english','communication','writing','microsoft office','leadership','customer management','social media']
+            uiux_keyword = ['adobe xd', 'figma', 'zeplin', 'balsamiq','prototyping', 'wireframes','adobe photoshop', 'illustrator','after effects', 'indesign','user research', 'user experience']
+            soft_skills = ['english','communication','writing','microsoft office','leadership','customer management','social media']
 
-            all_possible_skills = ds_keyword + web_keyword + android_keyword + ios_keyword + uiux_keyword
-            found_skills = [skill for skill in all_possible_skills if skill.lower() in resume_text.lower()]
+            all_possible_skills = ds_keyword + web_keyword + android_keyword + ios_keyword + uiux_keyword + soft_skills
+        
+            found_skills = []
+            for skill in all_possible_skills:
+                pattern = r'\b' + re.escape(skill.lower()) + r'\b'
+                if re.search(pattern, resume_text.lower()):
+                    found_skills.append(skill)
+
 
             resume_data = {
                 "name": extracted_name,
@@ -278,54 +284,76 @@ def run():
             recommended_skills = []
             rec_course = []
 
-            for i in resume_data['skills']:
-                if i.lower() in ds_keyword:
-                    reco_field = 'Data Science'
-                    recommended_skills = ['Data Visualization','Predictive Analysis','Statistical Modeling','Data Mining','Clustering & Classification','Data Analytics','Quantitative Analysis','Web Scraping','ML Algorithms','Keras','Pytorch','Probability','Scikit-learn','Tensorflow','Flask','Streamlit']
-                    recommended_keywords = st_tags(label='### Recommended skills for you.',
-                        text='Recommended skills generated from System',
-                        value=recommended_skills,key = 'rec_ds')
-                    rec_course = course_recommender(ds_course)
-                    break
-                elif i.lower() in web_keyword:
-                    reco_field = 'Web Development'
-                    recommended_skills = ['React','Django','Node JS','React JS','php','laravel','Magento','wordpress','Javascript','Angular JS','c#','Flask','SDK']
-                    recommended_keywords = st_tags(label='### Recommended skills for you.',
-                        text='Recommended skills generated from System',
-                        value=recommended_skills,key = 'rec_web')
-                    rec_course = course_recommender(web_course)
-                    break
-                elif i.lower() in android_keyword:
-                    reco_field = 'Android Development'
-                    recommended_skills = ['Android','Android development','Flutter','Kotlin','XML','Java','Kivy','GIT','SDK','SQLite']
-                    recommended_keywords = st_tags(label='### Recommended skills for you.',
-                        text='Recommended skills generated from System',
-                        value=recommended_skills,key = 'rec_android')
-                    rec_course = course_recommender(android_course)
-                    break
-                elif i.lower() in ios_keyword:
-                    reco_field = 'IOS Development'
-                    recommended_skills = ['IOS','IOS Development','Swift','Cocoa','Cocoa Touch','Xcode','Objective-C','SQLite','Plist','StoreKit','UI-Kit','AV Foundation','Auto-Layout']
-                    recommended_keywords = st_tags(label='### Recommended skills for you.',
-                        text='Recommended skills generated from System',
-                        value=recommended_skills,key = 'rec_ios')
-                    rec_course = course_recommender(ios_course)
-                    break
-                elif i.lower() in uiux_keyword:
-                    reco_field = 'UI-UX Development'
-                    recommended_skills = ['UI','User Experience','Adobe XD','Figma','Zeplin','Balsamiq','Prototyping','Wireframes','Storyframes','Adobe Photoshop','Editing','Illustrator','After Effects','Premier Pro','Indesign','Wireframe','Solid','Grasp','User Research']
-                    recommended_keywords = st_tags(label='### Recommended skills for you.',
-                        text='Recommended skills generated from System',
-                        value=recommended_skills,key = 'rec_uiux')
-                    rec_course = course_recommender(uiux_course)
-                    break
-                elif i.lower() in n_any:
-                    reco_field = 'NA'
-                    recommended_skills = ['No Recommendations']
-                    recommended_keywords = st_tags(label='### Recommended skills for you.',
-                        text='Currently No Recommendations',value=recommended_skills,key = 'rec_na')
-                    rec_course = ["Not Available"]
-                    break
+            # old logic!!!
+            # for i in resume_data['skills']:
+            #     if i.lower() in ds_keyword:
+            #         reco_field = 'Data Science'
+            #         recommended_skills = ['Data Visualization','Predictive Analysis','Statistical Modeling','Data Mining','Clustering & Classification','Data Analytics','Quantitative Analysis','Web Scraping','ML Algorithms','Keras','Pytorch','Probability','Scikit-learn','Tensorflow','Flask','Streamlit']
+            #         recommended_keywords = st_tags(label='### Recommended skills for you.',
+            #             text='Recommended skills generated from System',
+            #             value=recommended_skills,key = 'rec_ds')
+            #         rec_course = course_recommender(ds_course)
+            #         break
+            #     elif i.lower() in web_keyword:
+            #         reco_field = 'Web Development'
+            #         recommended_skills = ['React','Django','Node JS','React JS','php','laravel','Magento','wordpress','Javascript','Angular JS','c#','Flask','SDK']
+            #         recommended_keywords = st_tags(label='### Recommended skills for you.',
+            #             text='Recommended skills generated from System',
+            #             value=recommended_skills,key = 'rec_web')
+            #         rec_course = course_recommender(web_course)
+            #         break
+            #     elif i.lower() in android_keyword:
+            #         reco_field = 'Android Development'
+            #         recommended_skills = ['Android','Android development','Flutter','Kotlin','XML','Java','Kivy','GIT','SDK','SQLite']
+            #         recommended_keywords = st_tags(label='### Recommended skills for you.',
+            #             text='Recommended skills generated from System',
+            #             value=recommended_skills,key = 'rec_android')
+            #         rec_course = course_recommender(android_course)
+            #         break
+            #     elif i.lower() in ios_keyword:
+            #         reco_field = 'IOS Development'
+            #         recommended_skills = ['IOS','IOS Development','Swift','Cocoa','Cocoa Touch','Xcode','Objective-C','SQLite','Plist','StoreKit','UI-Kit','AV Foundation','Auto-Layout']
+            #         recommended_keywords = st_tags(label='### Recommended skills for you.',
+            #             text='Recommended skills generated from System',
+            #             value=recommended_skills,key = 'rec_ios')
+            #         rec_course = course_recommender(ios_course)
+            #         break
+            #     elif i.lower() in uiux_keyword:
+            #         reco_field = 'UI-UX Development'
+            #         recommended_skills = ['UI','User Experience','Adobe XD','Figma','Zeplin','Balsamiq','Prototyping','Wireframes','Storyframes','Adobe Photoshop','Editing','Illustrator','After Effects','Premier Pro','Indesign','Wireframe','Solid','Grasp','User Research']
+            #         recommended_keywords = st_tags(label='### Recommended skills for you.',
+            #             text='Recommended skills generated from System',
+            #             value=recommended_skills,key = 'rec_uiux')
+            #         rec_course = course_recommender(uiux_course)
+            #         break
+            #     elif i.lower() in n_any:
+            #         reco_field = 'NA'
+            #         recommended_skills = ['No Recommendations']
+            #         recommended_keywords = st_tags(label='### Recommended skills for you.',
+            #             text='Currently No Recommendations',value=recommended_skills,key = 'rec_na')
+            #         rec_course = ["Not Available"]
+            #         break
+
+            field_scores = {"Data Science": 0,"Web Development": 0,"Android Development": 0,"IOS Development": 0,"UI-UX Development": 0}
+
+            for skill in resume_data['skills']:
+                s = skill.lower()
+                if s in ds_keyword:
+                    field_scores["Data Science"] += 1
+                if s in web_keyword:
+                    field_scores["Web Development"] += 2   # give higher weight
+                if s in android_keyword:
+                    field_scores["Android Development"] += 1
+                if s in ios_keyword:
+                    field_scores["IOS Development"] += 1
+                if s in uiux_keyword:
+                    field_scores["UI-UX Development"] += 1
+
+            if max(field_scores.values()) == 0:
+                reco_field = "General / Undetermined"
+            else:
+                reco_field = max(field_scores, key=field_scores.get)
+
 
             # ---- Resume Score ----
             st.subheader("**Resume Score 📝**")
